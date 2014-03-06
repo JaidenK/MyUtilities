@@ -24,18 +24,18 @@ public class DrawUtil {
 		drawRectAboutOrigin(width, height, texture, coords);
 	}
 	
-	public static void drawRectAboutOrigit(double width, double height, Texture texture, Coord[] texCoords){
+	public static void drawRectAboutOrigin(double width, double height, Texture texture, Coord[] texCoords){
 		if(texCoords.length>=4){
 			glEnable(GL_TEXTURE_2D);
 			glBindTexture(GL_TEXTURE_2D, texture.getTextureID());
 			glBegin(GL_QUADS);	// Shapes should be drawn counter-clockwise
-				glTexCoord2f(texCoords[0].getX(), texCoords[0].getY());
+				glTexCoord2d(texCoords[0].getX(), texCoords[0].getY());
 				glVertex2d(-width/2, height/2); // Top-left
-				glTexCoord2f(texCoords[1].getX(), texCoords[1].getY());
+				glTexCoord2d(texCoords[1].getX(), texCoords[1].getY());
 				glVertex2d(-width/2, -height/2); // bottom-left
-				glTexCoord2f(texCoords[2].getX(), texCoords[2].getY());
+				glTexCoord2d(texCoords[2].getX(), texCoords[2].getY());
 				glVertex2d(width/2, -height/2); // bottom-right
-				glTexCoord2f(texCoords[3].getX(), texCoords[3].getY());
+				glTexCoord2d(texCoords[3].getX(), texCoords[3].getY());
 				glVertex2d(-width/2, height/2); // Top-right
 			glEnd();	
 			glDisable(GL_TEXTURE_2D);
