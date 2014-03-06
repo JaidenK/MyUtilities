@@ -7,6 +7,10 @@ public class Color {
 				   blue,
 				   alpha;
 	
+	public static final Color RED = new Color(1,0,0),
+							  GREEN = new Color(0,1,0),
+							  BLUE = new Color(0,0,1);
+	
 	public double getRed() {
 		return red;
 	}
