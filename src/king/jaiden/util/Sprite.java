@@ -37,7 +37,7 @@ public class Sprite extends Image {
 		double colsPerSprite = 1d / spritesPerRowAndColumn.getX();
 		double rowsPerSprite = 1d / spritesPerRowAndColumn.getY();
 		double x = (currentSprite % spritesPerRowAndColumn.getX()) * rowsPerSprite;
-		double y = currentSprite * Math.pow(rowsPerSprite, 2);
+		double y = Math.floor(currentSprite/spritesPerRowAndColumn.getX()) * rowsPerSprite;
 
 		texCoords = new Coord[4];
 		texCoords[0] = new Coord(x,y); // Top Left

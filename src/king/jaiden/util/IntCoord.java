@@ -9,6 +9,12 @@ public class IntCoord extends Coord {
 	private int x,
 				y;
 	
+	public IntCoord(int x, int y) {
+		this.x = x;
+		this.y = y;
+		// TODO Auto-generated constructor stub
+	}
+
 	public void subtract(Coord coord){
 		
 		add(new Coord(Math.round(-coord.getX()),Math.round(-coord.getY())));
