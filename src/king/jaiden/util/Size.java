@@ -4,6 +4,6 @@ import java.util.ArrayList;
 
 public interface Size {
 
-	public Coord getSize(InterfaceItem parent, InterfaceItem itemToResize, ArrayList<InterfaceItem> children);
+//	public Coord getSize(InterfaceItem parent, InterfaceItem itemToResize, ArrayList<InterfaceItem> children);
 	
 }
