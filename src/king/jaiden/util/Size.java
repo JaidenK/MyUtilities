@@ -2,8 +2,10 @@ package king.jaiden.util;
 
 import java.util.ArrayList;
 
-public interface Size {
+public abstract class Size {
+	public static final Size FIXED = new Fixed(),
+							 MATCH_PARENT = new MatchParent();
 
-//	public Coord getSize(InterfaceItem parent, InterfaceItem itemToResize, ArrayList<InterfaceItem> children);
+	public abstract void resize(InterfaceItem parent, InterfaceItem itemToResize, ArrayList<InterfaceItem> children);
 	
 }

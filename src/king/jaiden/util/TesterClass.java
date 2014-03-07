@@ -4,8 +4,6 @@ import static org.lwjgl.opengl.GL11.*;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
@@ -15,6 +13,8 @@ public class TesterClass extends ApplicationWindow{
 	Texture texture;
 	
 	Sprite sprite;
+	
+	Menu menu;
 	
 	public static void main(String[] args){
 		new TesterClass();
@@ -38,6 +38,10 @@ public class TesterClass extends ApplicationWindow{
 		sprite.setHeight(160);
 		sprite.setWidth(130);
 		
+		menu = new Menu();
+		menu.setVisible(true);
+		
+		
 	}
 
 	@Override
@@ -54,13 +58,13 @@ public class TesterClass extends ApplicationWindow{
 		
 		glPushMatrix();
 		glTranslated(-Math.cos(Math.toRadians(currentTick))*100,Math.sin(Math.toRadians(currentTick))*100,0);
-		DrawUtil.drawRectAboutOrigin(100, 50);
+		DrawUtil.drawRectAboutOrigin(new Coord(100, 50));
 		glPopMatrix();
 		
 		glPushMatrix();
 		DrawUtil.setColor(Color.WHITE);
 		glTranslated(Math.cos(Math.toRadians(currentTick))*100,0,0);
-		DrawUtil.drawRectAboutOrigin(100, 100, texture);
+		DrawUtil.drawRectAboutOrigin(new Coord(100, 100), texture);
 		glPopMatrix();
 		
 		sprite.draw();
@@ -75,5 +79,8 @@ public class TesterClass extends ApplicationWindow{
 		TextUtil.getInstance().write("the quick brown fox jumps over the lazy dog.", new Coord(0,160));
 		TextUtil.getInstance().write("THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.", new Coord(0,120));
 		TextUtil.getInstance().write("1234567890!@#$%^&*()[]{}',.\"<>;:-_/?=+\\|", new Coord(0,190));
+		
+		menu.draw();
+		menu.setColor(new Color(0.5,0.3,0.9));
 	}
 }

@@ -65,7 +65,7 @@ public class Image implements Drawable {
 	@Override
 	public void draw() {
 
-		DrawUtil.drawRectAboutOrigin(width, height, texture, texCoords);
+		DrawUtil.drawRectAboutOrigin(new Coord(width, height), texture, texCoords);
 		
 	}
 	

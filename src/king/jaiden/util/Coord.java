@@ -71,5 +71,9 @@ public class Coord {
 			return 0;
 		
 	}
+	
+	public Coord copy(){
+		return new Coord(x,y);
+	}
 		
 }
