@@ -9,7 +9,9 @@ public class Color {
 	
 	public static final Color RED = new Color(1,0,0),
 							  GREEN = new Color(0,1,0),
-							  BLUE = new Color(0,0,1);
+							  BLUE = new Color(0,0,1),
+							  WHITE = new Color(1,1,1),
+							  BLACK = new Color(0,0,0);
 	
 	public double getRed() {
 		return red;
@@ -63,5 +65,9 @@ public class Color {
 		this.green = green;
 		this.blue = blue;
 		this.alpha = alpha;
+	}
+	
+	public static Color getRandomColor(){
+		return new Color(Math.random(),Math.random(),Math.random(),1);
 	}
 }

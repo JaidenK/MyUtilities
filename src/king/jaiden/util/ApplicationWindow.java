@@ -60,9 +60,7 @@ public abstract class ApplicationWindow {
 		try {
 			DisplayMode displayMode = null;
 	        if(!isFullscreen){
-	        	System.out.println(windowDimensions.getX());
 	        	displayMode = new DisplayMode((int)windowDimensions.getX(),(int)windowDimensions.getY());
-	        	displayMode = new DisplayMode(DEFAULT_WIDTH,DEFAULT_HEIGHT);
 	        }else{
 		        DisplayMode[] modes = Display.getAvailableDisplayModes();
 		        for (int i = 0; i < modes.length; i++)

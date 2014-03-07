@@ -2,17 +2,17 @@ package king.jaiden.util;
 
 import static org.lwjgl.opengl.GL11.*;
 
-import org.lwjgl.util.Color;
 import org.newdawn.slick.opengl.Texture;
 
 public class DrawUtil {
 
 	public static void drawRectAboutOrigin(double width, double height){
+		glDisable(GL_TEXTURE_2D);
 		glBegin(GL_QUADS);	// Shapes should be drawn counter-clockwise 
 			glVertex2d(-width/2, height/2); // Top-left
 			glVertex2d(-width/2, -height/2); // bottom-left
 			glVertex2d(width/2, -height/2); // bottom-right
-			glVertex2d(-width/2, height/2); // Top-right
+			glVertex2d(width/2, height/2); // Top-right
 		glEnd();
 	}
 	
@@ -36,7 +36,7 @@ public class DrawUtil {
 				glTexCoord2d(texCoords[2].getX(), texCoords[2].getY());
 				glVertex2d(width/2, -height/2); // bottom-right
 				glTexCoord2d(texCoords[3].getX(), texCoords[3].getY());
-				glVertex2d(-width/2, height/2); // Top-right
+				glVertex2d(width/2, height/2); // Top-right
 			glEnd();	
 			glDisable(GL_TEXTURE_2D);
 		}else{

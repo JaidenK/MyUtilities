@@ -3,6 +3,7 @@ package king.jaiden.util;
 import java.io.File;
 import java.io.FileInputStream;
 
+import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.opengl.TextureLoader;
 import static org.lwjgl.opengl.GL11.*;
 
@@ -14,42 +15,59 @@ public class TextUtil {
 	
 	private int alignment;
 	
-	private Sprite lowercaseLetters,
-				   uppercaseLetters,
-				   numbers,
-				   symbols;
+	private Sprite letters,
+				   numbersAndSymbols;
 	
-	private TextUtil instance;
+	private static TextUtil instance;
 	
 	private String alphabet,symbolSheet;
 	
+	private Coord letterSize;
+	
 	private TextUtil(){		
 		alignment = RIGHT;
-		initSprites(lowercaseLetters,0);
-		initSprites(uppercaseLetters,1);
-		initSprites(numbers,2);
-		initSprites(symbols,3);
-		alphabet="abcdefghijklmnopqrstuv";
-		symbolSheet="!@#$%^&*()[]{}',.\"<>;:-_/?=+\\|";
+		letters = initSprites(0);
+		letters.setTotalSprites(52);
+		numbersAndSymbols = initSprites(1);
+		numbersAndSymbols.setTotalSprites(41);
+		alphabet="abcdefghijklmnopqrstuvwxyz";
+		symbolSheet="1234567890!@#$%^&*()[]{}',.\"<>;:-_/?=+\\| ";
 	}
 	
-	private void initSprites(Sprite sprite, int fileNumber){
+	private void shiftMatrixForAlignment(int wordLength, double letterWidth){
+		if(alignment==RIGHT)
+			return;
+		if(alignment==CENTER){
+			glTranslated(-0.5*wordLength*letterWidth,0,0);
+			return;
+		}if(alignment==LEFT){
+			glTranslated(-wordLength*letterWidth,0,0);
+			return;
+		}
+	}
+	
+	private Sprite initSprites(int fileNumber){
+		Sprite sprite;
 		try{
 			sprite = new Sprite(TextureLoader.getTexture("PNG", new FileInputStream(new File("res/images/alpha"+fileNumber+".png"))), 
-				  	  					  new IntCoord(6,6), 26, Sprite.HORIZONTAL);
+				  	  					  new IntCoord(8,8), 52, Sprite.HORIZONTAL);
+
+			return sprite;
 		}catch(Exception e){
 			e.printStackTrace();
 			try{
 				sprite = new Sprite(TextureLoader.getTexture("PNG", new FileInputStream(new File("res/images/missingImage.png"))), 
 					  	  new IntCoord(6,6), 26, Sprite.HORIZONTAL);
+				return sprite;
 			}catch(Exception e2){
 				e2.printStackTrace();
 				System.exit(1);
+				return null;
 			}
 		}
 	}
 	
-	public TextUtil getInstance(){
+	public static TextUtil getInstance(){
 		if(instance==null)
 			instance = new TextUtil();
 		return instance;
@@ -63,19 +81,22 @@ public class TextUtil {
 		this.alignment = alignment;
 	}
 	
-	public void write(String word, Coord position, Coord letterSize){
+	public void write(String word, Coord position){
 		// Only does right-aligned
+		GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
 		glPushMatrix();
 		glTranslated(position.getX(),position.getY(),0);
+		shiftMatrixForAlignment(word.length(),letterSize.getX());
 		for(int i = 0; i < word.length(); i++){
 			write(word.charAt(i),position,letterSize);
-			position.setX(position.getX()+letterSize.getX());
+			glTranslated(letterSize.getX(),0,0);
 		}
 		glPopMatrix();
 	}
 	
 	private void write(char letter, Coord position, Coord letterSize){
 		Sprite charSprites = getSpriteForChar(letter);
+		
 		charSprites.setHeight(letterSize.getY());
 		charSprites.setWidth(letterSize.getX());
 		
@@ -90,25 +111,24 @@ public class TextUtil {
 			if(Character.isUpperCase(letter))
 				return alphabet.toUpperCase().indexOf(letter);
 			else
-				return alphabet.indexOf(letter);
+				return alphabet.indexOf(letter)+26;
 		else
-			if(Character.isDigit(letter))
-				return (Integer.parseInt(letter+""))-1;
-			else 
-				return symbolSheet.indexOf(letter);
+			return symbolSheet.indexOf(letter);
 	}
 	
 	private Sprite getSpriteForChar(char letter){
 		if(Character.isLetter(letter))
-			if(Character.isUpperCase(letter))
-				return uppercaseLetters;
-			else
-				return lowercaseLetters;
+			return letters;
 		else
-			if(Character.isDigit(letter))
-				return numbers;
-			else 
-				return symbols;
+			return numbersAndSymbols;
+	}
+
+	public Coord getTextSize() {
+		return letterSize;
+	}
+
+	public void setTextSize(Coord textSize) {
+		this.letterSize = textSize;
 	}
 	
 	
