@@ -82,7 +82,6 @@ public class TextUtil {
 	}
 	
 	public void write(String word, Coord position){
-		// Only does right-aligned
 		GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
 		glPushMatrix();
 		glTranslated(position.getX(),position.getY(),0);

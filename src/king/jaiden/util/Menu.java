@@ -2,6 +2,8 @@ package king.jaiden.util;
 
 import static org.lwjgl.opengl.GL11.*;
 
+import java.util.ArrayList;
+
 public class Menu extends InterfaceItem {
 	
 	public Menu(){
@@ -10,10 +12,13 @@ public class Menu extends InterfaceItem {
 		color = Color.WHITE;
 		size = size.FIXED;
 		padding = 5;
+		childrenItems = new ArrayList<InterfaceItem>();
 	}
 	
 	public void add(InterfaceItem child){
 		childrenItems.add(child);
+		child.setParentItem(this);
+		child.resize();
 		resize();
 	}
 	

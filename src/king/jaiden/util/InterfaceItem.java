@@ -37,12 +37,14 @@ public abstract class InterfaceItem {
 	}
 	public void setPadding(double padding) {
 		this.padding = padding;
+		resize();
 	}
 	public InterfaceItem getParentItem() {
 		return parentItem;
 	}
 	public void setParentItem(InterfaceItem parentItem) {
 		this.parentItem = parentItem;
+		resize();
 	}
 //	public ArrayList<InterfaceItem> getChildrenItems() {
 //		return childrenItems;
@@ -65,9 +67,9 @@ public abstract class InterfaceItem {
 	}
 	public void setDimensions(Coord dimensions) {
 		this.dimensions = dimensions;
-		resize();
 	}
 	public void setSize(Size size) {
 		this.size = size;
+		resize();
 	}
 }

@@ -16,8 +16,12 @@ public class TesterClass extends ApplicationWindow{
 	
 	Menu menu;
 	
+	public TesterClass(IntCoord intCoord) {
+		super(intCoord);
+	}
+
 	public static void main(String[] args){
-		new TesterClass();
+		new TesterClass(new IntCoord(1280,720));
 	}
 
 	@Override
@@ -39,7 +43,16 @@ public class TesterClass extends ApplicationWindow{
 		sprite.setWidth(130);
 		
 		menu = new Menu();
+		menu.setColor(new Color(0.5,0.3,0.9));
+		menu.setSize(Size.FIXED);
+		menu.setDimensions(new Coord(150,250));
 		menu.setVisible(true);
+		
+		Label label = new Label("Hello World",new Coord(5,10));
+		label.setDimensions(new Coord(100,20));
+		label.setSize(Size.MATCH_PARENT);
+		
+		menu.add(label);
 		
 		
 	}
@@ -80,7 +93,7 @@ public class TesterClass extends ApplicationWindow{
 		TextUtil.getInstance().write("THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.", new Coord(0,120));
 		TextUtil.getInstance().write("1234567890!@#$%^&*()[]{}',.\"<>;:-_/?=+\\|", new Coord(0,190));
 		
+		glTranslated(200,-100,0);
 		menu.draw();
-		menu.setColor(new Color(0.5,0.3,0.9));
 	}
 }
