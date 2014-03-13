@@ -34,6 +34,12 @@ public class Label extends InterfaceItem {
 	public void draw() {
 		// TODO Auto-generated method stub
 		DrawUtil.setColor(color);
+		
+		if(image!=null){
+			image.draw();
+		}
+		
+		
 		TextUtil.getInstance().setAlignment(TextUtil.CENTER);
 		TextUtil.getInstance().setTextSize(fontSize);
 		TextUtil.getInstance().write(label, new Coord());

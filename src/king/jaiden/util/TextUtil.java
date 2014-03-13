@@ -38,7 +38,7 @@ public class TextUtil {
 		if(alignment==RIGHT)
 			return;
 		if(alignment==CENTER){
-			glTranslated(-0.5*wordLength*letterWidth,0,0);
+			glTranslated(-0.5*wordLength*letterWidth+letterWidth*0.5,0,0);
 			return;
 		}if(alignment==LEFT){
 			glTranslated(-wordLength*letterWidth,0,0);
@@ -47,24 +47,9 @@ public class TextUtil {
 	}
 	
 	private Sprite initSprites(int fileNumber){
-		Sprite sprite;
-		try{
-			sprite = new Sprite(TextureLoader.getTexture("PNG", new FileInputStream(new File("res/images/alpha"+fileNumber+".png"))), 
+			return new Sprite("res/images/alpha"+fileNumber+".png", 
 				  	  					  new IntCoord(8,8), 52, Sprite.HORIZONTAL);
 
-			return sprite;
-		}catch(Exception e){
-			e.printStackTrace();
-			try{
-				sprite = new Sprite(TextureLoader.getTexture("PNG", new FileInputStream(new File("res/images/missingImage.png"))), 
-					  	  new IntCoord(6,6), 26, Sprite.HORIZONTAL);
-				return sprite;
-			}catch(Exception e2){
-				e2.printStackTrace();
-				System.exit(1);
-				return null;
-			}
-		}
 	}
 	
 	public static TextUtil getInstance(){
@@ -82,7 +67,6 @@ public class TextUtil {
 	}
 	
 	public void write(String word, Coord position){
-		GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
 		glPushMatrix();
 		glTranslated(position.getX(),position.getY(),0);
 		shiftMatrixForAlignment(word.length(),letterSize.getX());
@@ -94,15 +78,20 @@ public class TextUtil {
 	}
 	
 	private void write(char letter, Coord position, Coord letterSize){
+
+		GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
 		Sprite charSprites = getSpriteForChar(letter);
 		
-		charSprites.setHeight(letterSize.getY());
-		charSprites.setWidth(letterSize.getX());
+		charSprites.setDimensions(letterSize);
 		
 		int alphaIndex = getAlphaIndex(letter);//this is the index in the alphabet that the letter represents
 		
 		charSprites.setCurrentSprite(alphaIndex);
 		charSprites.draw();
+		
+//		DrawUtil.setColor(new Color(1,1,1,.2));
+//		DrawUtil.drawRectAboutOrigin(letterSize);
+//		DrawUtil.setColor(Color.WHITE);
 	}
 	
 	private int getAlphaIndex(char letter){

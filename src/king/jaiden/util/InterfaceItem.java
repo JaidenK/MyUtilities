@@ -2,7 +2,11 @@ package king.jaiden.util;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
+
+import org.lwjgl.input.Mouse;
 
 public abstract class InterfaceItem {
 	protected Coord dimensions;
@@ -13,7 +17,12 @@ public abstract class InterfaceItem {
 	protected double padding;
 	protected InterfaceItem parentItem;
 	protected ArrayList<InterfaceItem> childrenItems;
+	
 	protected ActionListener actionListener;
+	protected ActionListener onClick;
+	
+	protected boolean leftButtonDown = false;
+	
 	public boolean isVisible() {
 		return visible;
 	}
@@ -31,6 +40,7 @@ public abstract class InterfaceItem {
 	}
 	public void setImage(Image image) {
 		this.image = image;
+		image.setDimensions(dimensions);
 	}
 	public double getPadding() {
 		return padding;
@@ -46,20 +56,22 @@ public abstract class InterfaceItem {
 		this.parentItem = parentItem;
 		resize();
 	}
-//	public ArrayList<InterfaceItem> getChildrenItems() {
-//		return childrenItems;
-//	}
-//	public void setChildrenItems(ArrayList<InterfaceItem> childrenItems) {
-//		this.childrenItems = childrenItems;
-//	}
 	public void addActionListener(ActionListener actionListener){
 		this.actionListener = actionListener;
+	}
+	public void onClick(ActionListener actionListener){
+		this.onClick = actionListener;
 	}
 	public void fireActionPerformed(){
 		actionListener.actionPerformed(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,null));
 	}
+	public void fireMouseClicked(){
+		onClick.actionPerformed(new ActionEvent(this,ActionEvent.ACTION_PERFORMED,null));
+	}
 	public void resize(){
 		size.resize(parentItem, this, childrenItems);
+		if(image!=null)
+			image.setDimensions(dimensions);
 	}
 	public abstract void draw();
 	public Coord getDimensions() {
@@ -71,5 +83,15 @@ public abstract class InterfaceItem {
 	public void setSize(Size size) {
 		this.size = size;
 		resize();
+	}
+	public void testForMouseEvents(){
+		if(Mouse.isButtonDown(0)){
+			leftButtonDown = true;
+		}else{
+			if(leftButtonDown){
+				leftButtonDown = false;
+				fireMouseClicked();
+			}
+		}
 	}
 }

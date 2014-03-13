@@ -11,7 +11,8 @@ public class Sprite extends Image {
 	public static final int VERTICAL = 0,
 							HORIZONTAL = 1;
 	
-	public Sprite(Texture texture, IntCoord spritesPerRowAndColumn, int totalSprites, int order){
+	public Sprite(String path, IntCoord spritesPerRowAndColumn, int totalSprites, int order){
+		super(path);
 		this.spritesPerRowAndColumn = spritesPerRowAndColumn;
 		this.texture = texture;
 		this.currentSprite = 0;

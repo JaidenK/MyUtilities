@@ -32,27 +32,43 @@ public class TesterClass extends ApplicationWindow{
 		color = Color.RED;
 		try{
 			texture = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/images/alpha0.png")));
-			sprite = new Sprite(TextureLoader.getTexture("PNG", new FileInputStream(new File("res/images/running.png"))), 
-  					  new IntCoord(5,6), 26, Sprite.HORIZONTAL);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+
+		sprite = new Sprite("res/images/running.png", 
+					  new IntCoord(5,6), 26, Sprite.HORIZONTAL);
 		
 		sprite.setCurrentSprite(0);
-		sprite.setHeight(160);
-		sprite.setWidth(130);
+		sprite.setDimensions(new Coord(160, 130));
+		
+		Coord letterRatio = new Coord(5,10);
 		
 		menu = new Menu();
 		menu.setColor(new Color(0.5,0.3,0.9));
 		menu.setSize(Size.FIXED);
-		menu.setDimensions(new Coord(150,250));
+		menu.setDimensions(new Coord(250,500));
 		menu.setVisible(true);
 		
-		Label label = new Label("Hello World",new Coord(5,10));
-		label.setDimensions(new Coord(100,20));
-		label.setSize(Size.MATCH_PARENT);
+		Label label = new Label("Hello World",letterRatio);
+		label.setDimensions(new Coord(200,40));
+		label.setSize(Size.MATCH_PARENT_WIDTH);
+		label.setColor(Color.RED);
+
+		Label label2 = new Label("Hello World",letterRatio);
+		label2.setDimensions(new Coord(100,20));
+		label2.setSize(Size.MATCH_PARENT_WIDTH);
+		label2.setColor(Color.RED);
+		
+		Label label3 = new Label("AXYZ",letterRatio);
+		label3.setDimensions(new Coord(100,70));
+		label3.setSize(Size.MATCH_PARENT_WIDTH);
+		label3.setColor(Color.RED);
 		
 		menu.add(label);
+		menu.add(label2);
+		menu.add(new Label("Text",letterRatio));
+		menu.add(label3);
 		
 		
 	}
@@ -67,7 +83,6 @@ public class TesterClass extends ApplicationWindow{
 		super.draw();
 		glLoadIdentity();
 		DrawUtil.setColor(color);
-		glTranslated(windowDimensions.getX()/2,windowDimensions.getY()/2,0);
 		
 		glPushMatrix();
 		glTranslated(-Math.cos(Math.toRadians(currentTick))*100,Math.sin(Math.toRadians(currentTick))*100,0);

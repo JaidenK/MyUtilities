@@ -32,20 +32,19 @@ public class Menu extends InterfaceItem {
 		resize();
 	}
 	
+	public void removeAll(){
+		childrenItems = new ArrayList<InterfaceItem>();
+	}
+	
 	public void draw(){
 		if(!visible)
 			return;
-		
+
 		DrawUtil.setColor(color);
-		
-		
-		
 		if(image==null)
 			DrawUtil.drawRectAboutOrigin(dimensions);
 		else
 			image.draw();
-		
-		
 		if(childrenItems!=null){
 			double childrenHeight = 0;
 			for(InterfaceItem child : childrenItems){
@@ -65,5 +64,7 @@ public class Menu extends InterfaceItem {
 			}
 			glPopMatrix();
 		}
+		
+
 	}
 }

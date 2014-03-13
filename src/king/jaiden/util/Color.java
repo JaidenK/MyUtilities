@@ -11,7 +11,9 @@ public class Color {
 							  GREEN = new Color(0,1,0),
 							  BLUE = new Color(0,0,1),
 							  WHITE = new Color(1,1,1),
-							  BLACK = new Color(0,0,0);
+							  BLACK = new Color(0,0,0),
+							  GRAY = new Color(0.5,0.5,0.5),
+	  					      CLEAR = new Color(1,1,1,0);
 	
 	public double getRed() {
 		return red;

@@ -2,6 +2,8 @@ package king.jaiden.util;
 
 import static org.lwjgl.opengl.GL11.*;
 
+import java.util.ArrayList;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
@@ -24,13 +26,14 @@ public abstract class ApplicationWindow {
 	protected boolean isFullscreen,
 					  isPaused;
 	protected String windowTitle;
+	private ArrayList<InterfaceItem> registeredMouseListeners;
 	
 	public ApplicationWindow(){
 		this(new IntCoord(DEFAULT_WIDTH,DEFAULT_HEIGHT));
 	}
 	
 	public ApplicationWindow(IntCoord windowDimensions){
-		this(windowDimensions,DEFAULT_FOV,"",false,TWO_DIMENSIONAL);
+		this(windowDimensions,DEFAULT_FOV,"Game",false,TWO_DIMENSIONAL);
 	}
 	
 	public ApplicationWindow(IntCoord windowDimensions, int fov, String windowTitle, boolean isFullscreen, int matrixMode){
@@ -49,11 +52,17 @@ public abstract class ApplicationWindow {
 		
 		enableTests();
 		
+		initializeListeners();
+		
 		init();
 		
 		renderLoop();
 		
 		Display.destroy();
+	}
+	
+	private void initializeListeners(){
+		registeredMouseListeners = new ArrayList<InterfaceItem>();
 	}
 	
 	private void setupDisplay(){
@@ -104,12 +113,17 @@ public abstract class ApplicationWindow {
 	}
 	
 	public abstract void init();
-	public abstract void input();
+	public void input(){
+		for(InterfaceItem interfaceItem : registeredMouseListeners){
+			interfaceItem.testForMouseEvents();
+		}
+	}
 	public void tick(){
 		currentTick++;
 	}
 	public void draw(){
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glLoadIdentity();
 	}
 	public void setup3DMatrix(){
 		glViewport(0,0,(int)windowDimensions.getX(),(int)windowDimensions.getY());
@@ -123,7 +137,7 @@ public abstract class ApplicationWindow {
 	public void setup2DMatrix(int w, int h){
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		glOrtho(0, w, 0, h, 1, -1);
+		glOrtho(-0.5*w, 0.5*w, -0.5*h, 0.5*h, 1, -1);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 	}
@@ -131,8 +145,12 @@ public abstract class ApplicationWindow {
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		
-		glEnable(GL_DEPTH_TEST);	//DEPTH_TEST
-		glDepthFunc(GL_LESS);
+		if(matrixMode==THREE_DIMENSIONAL){
+			glEnable(GL_DEPTH_TEST);	//DEPTH_TEST
+			glDepthFunc(GL_LESS);
+		}else{
+			glDisable(GL_DEPTH_TEST);
+		}
 		
 		glEnable(GL_CULL_FACE);		//GL_CULL_FACE
 	}
@@ -141,5 +159,8 @@ public abstract class ApplicationWindow {
 	}
 	public void unpause(){
 		isPaused=false;
+	}
+	public void registerMouseListener(InterfaceItem item){
+		registeredMouseListeners.add(item);
 	}
 }
