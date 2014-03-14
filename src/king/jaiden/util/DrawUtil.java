@@ -106,6 +106,8 @@ public class DrawUtil {
 		glEnd();
 	}
 	
+	public static void 
+	
 	public static void setColor(Color color){
 		glColor4d(color.getRed(), color.getBlue(), color.getGreen(), color.getAlpha());
 	}
