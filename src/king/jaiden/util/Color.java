@@ -8,7 +8,10 @@ public class Color {
 				   alpha;
 	
 	public static final Color RED = new Color(1,0,0),
-							  GREEN = new Color(0,1,0),
+			  				  ORANGE = new Color(1,0.5,0),
+			  				  YELLOW = new Color(1,1,0),
+			  				  GREEN = new Color(0,1,0),
+			  				  CYAN = new Color(0,1,1),
 							  BLUE = new Color(0,0,1),
 							  WHITE = new Color(1,1,1),
 							  BLACK = new Color(0,0,0),

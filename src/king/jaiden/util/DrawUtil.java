@@ -45,6 +45,67 @@ public class DrawUtil {
 		}
 	}
 	
+	public static void drawRectPrismAboutOrigin(Coord3D dimensions,Color[] colors){
+		glDisable(GL_TEXTURE_2D);
+		glBegin(GL_QUADS);	// Shapes should be drawn counter-clockwise 
+		
+			setColor(colors[0]);
+			glVertex3d(-dimensions.getX()/2, dimensions.getY()/2, dimensions.getZ()/2); // Front
+			setColor(colors[1]);
+			glVertex3d(-dimensions.getX()/2, -dimensions.getY()/2, dimensions.getZ()/2); 
+			setColor(colors[2]);
+			glVertex3d(dimensions.getX()/2, -dimensions.getY()/2, dimensions.getZ()/2); 
+			setColor(colors[3]);
+			glVertex3d(dimensions.getX()/2, dimensions.getY()/2, dimensions.getZ()/2); 
+
+			setColor(colors[4]);
+			glVertex3d(dimensions.getX()/2, dimensions.getY()/2, -dimensions.getZ()/2); // Back
+			setColor(colors[5]);
+			glVertex3d(dimensions.getX()/2, -dimensions.getY()/2, -dimensions.getZ()/2); 
+			setColor(colors[6]);
+			glVertex3d(-dimensions.getX()/2, -dimensions.getY()/2, -dimensions.getZ()/2); 
+			setColor(colors[7]);
+			glVertex3d(-dimensions.getX()/2, dimensions.getY()/2, -dimensions.getZ()/2); 
+
+			setColor(colors[7]);
+			glVertex3d(-dimensions.getX()/2, dimensions.getY()/2, -dimensions.getZ()/2); // Left
+			setColor(colors[6]);
+			glVertex3d(-dimensions.getX()/2, -dimensions.getY()/2, -dimensions.getZ()/2); 
+			setColor(colors[1]);
+			glVertex3d(-dimensions.getX()/2, -dimensions.getY()/2, dimensions.getZ()/2); 
+			setColor(colors[0]);
+			glVertex3d(-dimensions.getX()/2, dimensions.getY()/2, dimensions.getZ()/2); 
+
+			setColor(colors[3]);
+			glVertex3d(dimensions.getX()/2, dimensions.getY()/2, dimensions.getZ()/2); // Right
+			setColor(colors[2]);
+			glVertex3d(dimensions.getX()/2, -dimensions.getY()/2, dimensions.getZ()/2); 
+			setColor(colors[5]);
+			glVertex3d(dimensions.getX()/2, -dimensions.getY()/2, -dimensions.getZ()/2); 
+			setColor(colors[4]);
+			glVertex3d(dimensions.getX()/2, dimensions.getY()/2, -dimensions.getZ()/2); 
+
+//			setColor(colors[16]);
+			glVertex3d(dimensions.getX()/2, dimensions.getY()/2, dimensions.getZ()/2); // Top
+//			setColor(colors[17]);
+			glVertex3d(dimensions.getX()/2, dimensions.getY()/2, -dimensions.getZ()/2); 
+//			setColor(colors[18]);
+			glVertex3d(-dimensions.getX()/2, dimensions.getY()/2, -dimensions.getZ()/2); 
+//			setColor(colors[19]);
+			glVertex3d(-dimensions.getX()/2, dimensions.getY()/2, dimensions.getZ()/2); 
+
+//			setColor(colors[0]);
+			glVertex3d(-dimensions.getX()/2, -dimensions.getY()/2, dimensions.getZ()/2); // Top
+//			setColor(colors[0]);
+			glVertex3d(-dimensions.getX()/2, -dimensions.getY()/2, -dimensions.getZ()/2); 
+//			setColor(colors[0]);
+			glVertex3d(dimensions.getX()/2, -dimensions.getY()/2, -dimensions.getZ()/2);
+//			setColor(colors[0]); 
+			glVertex3d(dimensions.getX()/2, -dimensions.getY()/2, dimensions.getZ()/2); 
+			
+		glEnd();
+	}
+	
 	public static void setColor(Color color){
 		glColor4d(color.getRed(), color.getBlue(), color.getGreen(), color.getAlpha());
 	}
