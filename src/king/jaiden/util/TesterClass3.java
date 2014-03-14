@@ -10,20 +10,19 @@ public class TesterClass3 extends ApplicationWindow {
 	@Override
 	public void init() {
 		colors = new Color[8];
-		colors[0] = Color.BLUE;
-		colors[1] = Color.GRAY;
-		colors[2] = Color.GREEN;
-		colors[3] = Color.RED;
-		colors[4] = Color.YELLOW;
-		colors[5] = Color.WHITE;
-		colors[6] = Color.ORANGE;
-		colors[7] = Color.CYAN;
+		colors[0] = Color.RED;
+		colors[1] = Color.ORANGE;
+		colors[2] = Color.YELLOW;
+		colors[3] = Color.GREEN;
+		colors[4] = Color.CYAN;
+		colors[5] = Color.BLUE;
+		colors[6] = Color.VIOLET;
+		colors[7] = Color.WHITE;
 	}
 	public void draw(){
 		super.draw();
 		glTranslated(0,0,-30);
 		glRotated(currentTick,1,1,0);
-		DrawUtil.drawRectAboutOrigin(new Coord(10,10));
 		DrawUtil.drawRectPrismAboutOrigin(new Coord3D(10,10,10),colors);
 	}
 	public static void main(String[] args) {

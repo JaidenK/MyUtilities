@@ -85,22 +85,22 @@ public class DrawUtil {
 			setColor(colors[4]);
 			glVertex3d(dimensions.getX()/2, dimensions.getY()/2, -dimensions.getZ()/2); 
 
-//			setColor(colors[16]);
+			setColor(colors[3]);
 			glVertex3d(dimensions.getX()/2, dimensions.getY()/2, dimensions.getZ()/2); // Top
-//			setColor(colors[17]);
+			setColor(colors[4]);
 			glVertex3d(dimensions.getX()/2, dimensions.getY()/2, -dimensions.getZ()/2); 
-//			setColor(colors[18]);
+			setColor(colors[7]);
 			glVertex3d(-dimensions.getX()/2, dimensions.getY()/2, -dimensions.getZ()/2); 
-//			setColor(colors[19]);
+			setColor(colors[0]);
 			glVertex3d(-dimensions.getX()/2, dimensions.getY()/2, dimensions.getZ()/2); 
 
-//			setColor(colors[0]);
-			glVertex3d(-dimensions.getX()/2, -dimensions.getY()/2, dimensions.getZ()/2); // Top
-//			setColor(colors[0]);
+			setColor(colors[1]);
+			glVertex3d(-dimensions.getX()/2, -dimensions.getY()/2, dimensions.getZ()/2); // Bottom
+			setColor(colors[6]);
 			glVertex3d(-dimensions.getX()/2, -dimensions.getY()/2, -dimensions.getZ()/2); 
-//			setColor(colors[0]);
+			setColor(colors[5]);
 			glVertex3d(dimensions.getX()/2, -dimensions.getY()/2, -dimensions.getZ()/2);
-//			setColor(colors[0]); 
+			setColor(colors[2]); 
 			glVertex3d(dimensions.getX()/2, -dimensions.getY()/2, dimensions.getZ()/2); 
 			
 		glEnd();
