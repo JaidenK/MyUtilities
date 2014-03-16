@@ -32,15 +32,16 @@ public class TextUtil {
 		numbersAndSymbols.setTotalSprites(41);
 		alphabet="abcdefghijklmnopqrstuvwxyz";
 		symbolSheet="1234567890!@#$%^&*()[]{}',.\"<>;:-_/?=+\\| ";
+		letterSize = new Coord(20,40);
 	}
 	
 	private void shiftMatrixForAlignment(int wordLength, double letterWidth){
-		if(alignment==RIGHT)
+		if(alignment==LEFT)
 			return;
 		if(alignment==CENTER){
 			glTranslated(-0.5*wordLength*letterWidth+letterWidth*0.5,0,0);
 			return;
-		}if(alignment==LEFT){
+		}if(alignment==RIGHT){
 			glTranslated(-wordLength*letterWidth,0,0);
 			return;
 		}

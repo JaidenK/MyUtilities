@@ -106,6 +106,43 @@ public class DrawUtil {
 			
 		glEnd();
 	}
+
+	public static void drawRectPrismAboutOrigin(Coord3D dimensions){
+		glDisable(GL_TEXTURE_2D);
+		glBegin(GL_QUADS);	// Shapes should be drawn counter-clockwise 
+		
+			glVertex3d(-dimensions.getX()/2, dimensions.getY()/2, dimensions.getZ()/2); // Front
+			glVertex3d(-dimensions.getX()/2, -dimensions.getY()/2, dimensions.getZ()/2); 
+			glVertex3d(dimensions.getX()/2, -dimensions.getY()/2, dimensions.getZ()/2); 
+			glVertex3d(dimensions.getX()/2, dimensions.getY()/2, dimensions.getZ()/2); 
+
+			glVertex3d(dimensions.getX()/2, dimensions.getY()/2, -dimensions.getZ()/2); // Back
+			glVertex3d(dimensions.getX()/2, -dimensions.getY()/2, -dimensions.getZ()/2); 
+			glVertex3d(-dimensions.getX()/2, -dimensions.getY()/2, -dimensions.getZ()/2); 
+			glVertex3d(-dimensions.getX()/2, dimensions.getY()/2, -dimensions.getZ()/2); 
+
+			glVertex3d(-dimensions.getX()/2, dimensions.getY()/2, -dimensions.getZ()/2); // Left
+			glVertex3d(-dimensions.getX()/2, -dimensions.getY()/2, -dimensions.getZ()/2); 
+			glVertex3d(-dimensions.getX()/2, -dimensions.getY()/2, dimensions.getZ()/2); 
+			glVertex3d(-dimensions.getX()/2, dimensions.getY()/2, dimensions.getZ()/2); 
+
+			glVertex3d(dimensions.getX()/2, dimensions.getY()/2, dimensions.getZ()/2); // Right
+			glVertex3d(dimensions.getX()/2, -dimensions.getY()/2, dimensions.getZ()/2); 
+			glVertex3d(dimensions.getX()/2, -dimensions.getY()/2, -dimensions.getZ()/2); 
+			glVertex3d(dimensions.getX()/2, dimensions.getY()/2, -dimensions.getZ()/2); 
+
+			glVertex3d(dimensions.getX()/2, dimensions.getY()/2, dimensions.getZ()/2); // Top
+			glVertex3d(dimensions.getX()/2, dimensions.getY()/2, -dimensions.getZ()/2); 
+			glVertex3d(-dimensions.getX()/2, dimensions.getY()/2, -dimensions.getZ()/2); 
+			glVertex3d(-dimensions.getX()/2, dimensions.getY()/2, dimensions.getZ()/2); 
+
+			glVertex3d(-dimensions.getX()/2, -dimensions.getY()/2, dimensions.getZ()/2); // Bottom
+			glVertex3d(-dimensions.getX()/2, -dimensions.getY()/2, -dimensions.getZ()/2); 
+			glVertex3d(dimensions.getX()/2, -dimensions.getY()/2, -dimensions.getZ()/2);
+			glVertex3d(dimensions.getX()/2, -dimensions.getY()/2, dimensions.getZ()/2); 
+			
+		glEnd();
+	}
 	
 	public static void setup2DMatrix(int width, int height){
 		glMatrixMode(GL_PROJECTION);
@@ -113,6 +150,13 @@ public class DrawUtil {
 		glOrtho(-0.5*width, 0.5*width, -0.5*height, 0.5*height, 1, -1);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
+	}
+	
+	public static void translate(Coord pos){
+		glTranslated(pos.getX(),pos.getY(),0);
+	}
+	public static void translate(Coord3D pos){
+		glTranslated(pos.getX(),pos.getY(),pos.getZ());
 	}
 	
 	public static void setup3DMatrix(int width, int height, float zNear, float zFar){
