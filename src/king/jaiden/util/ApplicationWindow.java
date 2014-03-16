@@ -97,10 +97,15 @@ public abstract class ApplicationWindow {
 		if(matrixMode==THREE_DIMENSIONAL){
 			setup3DMatrix();
 		}else{
-			setup2DMatrix((int)windowDimensions.getX(),(int)windowDimensions.getY());
+			setup2DMatrix();
 		}
 	}
-	
+	protected void setup2DMatrix(){
+		DrawUtil.setup2DMatrix((int)windowDimensions.getX(),(int)windowDimensions.getY());
+	}
+	protected void setup3DMatrix(){
+		DrawUtil.setup3DMatrix((int)windowDimensions.getX(),(int)windowDimensions.getY(),zNear,zFar);
+	}
 	private void renderLoop(){
 		while (!Display.isCloseRequested()){
 			input();
@@ -123,22 +128,6 @@ public abstract class ApplicationWindow {
 	}
 	public void draw(){
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glLoadIdentity();
-	}
-	public void setup3DMatrix(){
-		glViewport(0,0,(int)windowDimensions.getX(),(int)windowDimensions.getY());
-		// Setup the Matrix
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		GLU.gluPerspective(100, (float)(windowDimensions.getX()/windowDimensions.getY()), zNear, zFar);
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
-	}
-	public void setup2DMatrix(int w, int h){
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		glOrtho(-0.5*w, 0.5*w, -0.5*h, 0.5*h, 1, -1);
-		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 	}
 	public void enableTests(){

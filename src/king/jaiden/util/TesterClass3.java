@@ -23,7 +23,11 @@ public class TesterClass3 extends ApplicationWindow {
 		super.draw();
 		glTranslated(0,0,-30);
 		glRotated(currentTick,1,1,0);
+		
 		DrawUtil.drawRectPrismAboutOrigin(new Coord3D(10,10,10),colors);
+		setup2DMatrix();
+		DrawUtil.drawRectAboutOrigin(new Coord(100,50));
+		setup3DMatrix();
 	}
 	public static void main(String[] args) {
 		new TesterClass3(new IntCoord(1680,1050), 70, "Tester 3", true, ApplicationWindow.THREE_DIMENSIONAL);

@@ -2,6 +2,7 @@ package king.jaiden.util;
 
 import static org.lwjgl.opengl.GL11.*;
 
+import org.lwjgl.util.glu.GLU;
 import org.newdawn.slick.opengl.Texture;
 
 public class DrawUtil {
@@ -106,7 +107,23 @@ public class DrawUtil {
 		glEnd();
 	}
 	
-	public static void 
+	public static void setup2DMatrix(int width, int height){
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		glOrtho(-0.5*width, 0.5*width, -0.5*height, 0.5*height, 1, -1);
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
+	}
+	
+	public static void setup3DMatrix(int width, int height, float zNear, float zFar){
+		glViewport(0,0,width,height);
+		// Setup the Matrix
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		GLU.gluPerspective(100, (float)width/height, zNear, zFar);
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
+	}
 	
 	public static void setColor(Color color){
 		glColor4d(color.getRed(), color.getBlue(), color.getGreen(), color.getAlpha());
