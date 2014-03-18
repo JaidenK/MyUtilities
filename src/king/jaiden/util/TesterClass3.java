@@ -9,6 +9,7 @@ public class TesterClass3 extends ApplicationWindow {
 	private Coord3D[] cubes;
 	private int c;
 	private boolean lines;
+	private Vector3D A,B,C;
 	public TesterClass3(IntCoord intCoord, int i, String string, boolean b,
 			int threeDimensional) {
 		super(intCoord,i,string,b,threeDimensional);
@@ -34,6 +35,9 @@ public class TesterClass3 extends ApplicationWindow {
 		cubes[5] = new Coord3D();
 		c = 60;
 		lines = false;
+		A = new Vector3D(5,0,0);
+		B = new Vector3D(0,0,-5);
+		C = A.cross(B);
 	}
 	public void tick(){
 		super.tick();
@@ -80,6 +84,7 @@ public class TesterClass3 extends ApplicationWindow {
 				DrawUtil.drawRectPrismAboutOrigin(new Coord3D(1,1,1),colors);
 			glPopMatrix();
 		}
+		drawVectors();
 		DrawUtil.setColor(Color.WHITE);
 		if(lines)
 			drawWires();
@@ -104,6 +109,19 @@ public class TesterClass3 extends ApplicationWindow {
 			glVertex3d(0,Math.cos(Math.toRadians(i))*10,Math.sin(Math.toRadians(i))*10);
 		}
 		glEnd();
+	}
+	public void drawVectors() {
+		glBegin(GL_LINES);
+			DrawUtil.setColor(Color.RED);
+			glVertex3d(0,0,0);
+			glVertex3d(A.getX(),A.getY(),A.getZ());
+			DrawUtil.setColor(Color.GREEN);
+			glVertex3d(0,0,0);
+			glVertex3d(B.getX(),B.getY(),B.getZ());
+			DrawUtil.setColor(Color.BLUE);
+			glVertex3d(0,0,0);
+			glVertex3d(C.getX(),C.getY(),C.getZ());
+		glEnd();		
 	}
 	public static void main(String[] args) {
 		new TesterClass3(new IntCoord(1680,1050), 70, "Tester 3", true, ApplicationWindow.THREE_DIMENSIONAL);
