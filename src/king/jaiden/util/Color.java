@@ -19,6 +19,8 @@ public class Color {
 							  GRAY = new Color(0.5,0.5,0.5),
 	  					      CLEAR = new Color(1,1,1,0);
 	
+	public static final Color[] RAINBOW_1 = {RED,ORANGE,YELLOW,GREEN,CYAN,BLUE,VIOLET,WHITE};
+	
 	public double getRed() {
 		return red;
 	}
