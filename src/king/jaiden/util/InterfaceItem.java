@@ -21,6 +21,20 @@ public abstract class InterfaceItem {
 	protected ActionListener actionListener;
 	protected ActionListener onClick;
 	
+	protected double realMouseX, realMouseY; // This is the coordinate of the InterfaceItem on the screen
+	
+	public double getRealMouseX() {
+		return realMouseX;
+	}
+	public void setRealMouseX(double realMouseX) {
+		this.realMouseX = realMouseX;
+	}
+	public double getRealMouseY() {
+		return realMouseY;
+	}
+	public void setRealMouseY(double realMouseY) {
+		this.realMouseY = realMouseY;
+	}
 	protected boolean leftButtonDown = false;
 	
 	public boolean isVisible() {

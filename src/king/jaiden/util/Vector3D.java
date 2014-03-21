@@ -2,16 +2,24 @@ package king.jaiden.util;
 import static org.lwjgl.opengl.GL11.*;
 
 public class Vector3D extends Coord3D implements Drawable{
-	private double theta = 0, phi = 0, headScale = 0;
+	private double xRot = 0, yRot = 0, zRot = 0, headScale = 0;
 	public Vector3D(double x,double y, double z){
 		super(x,y,z);
-		theta = Math.acos(y/getRadius());
-		theta = 90;
-		if(z!=0)
-			phi = Math.atan(x/z);
-		else
-			phi = 90;
-		System.out.println(theta+" "+phi);
+		xRot = getRotation(y,Math.abs(z));
+		yRot = -getRotation(x,z); 
+		zRot = -getRotation(x,y);
+	}
+	public double getxRot() {
+		return xRot;
+	}
+	public double getyRot() {
+		return yRot;
+	}
+	public double getzRot() {
+		return zRot;
+	}
+	public double getHeadScale() {
+		return headScale;
 	}
 	public Vector3D cross(Vector3D b){
 		double i = getY()*b.getZ() - getZ()*b.getY();
@@ -26,19 +34,21 @@ public class Vector3D extends Coord3D implements Drawable{
 		glEnd();
 	}
 	public void transAndRotate(){
-		headScale = getRadius()*0.01;
-//		glTranslated(Math.random(),Math.random(),Math.random());
+		headScale = 0.2;//getRadius()*0.1;
 		glTranslated(getX(),getY(),getZ());
-//		glRotated(Math.random()*360,0,0,1);
-//		glRotated(Math.random()*360,0,1,0);
-		glRotated(theta,0,0,1);
-		glRotated(phi,0,1,0);
+		glRotated(yRot,0,0,1);
+		glRotated(xRot,0,1,0);
+		glRotated(zRot,1,0,0);
 	}
 	public void drawCone(){
-//		glScaled(headScale,headScale,headScale);
+		glScaled(headScale,headScale,headScale);
 		glBegin(GL_TRIANGLES);
 		int dTheta = 10;
 		for(int i = 0; i<=360; i+=dTheta){
+			if(i%3==0)
+				DrawUtil.setColor(Color.RED);
+			else
+				DrawUtil.setColor(Color.BLUE);
 			glVertex3d(Math.cos(Math.toRadians(i)),Math.sin(Math.toRadians(i)),0);
 			glVertex3d(Math.cos(Math.toRadians(i+dTheta)),Math.sin(Math.toRadians(i+dTheta)),0);
 			glVertex3d(0,0,2);
@@ -54,5 +64,14 @@ public class Vector3D extends Coord3D implements Drawable{
 		transAndRotate();
 		drawCone();
 		glPopMatrix();
+	}
+	public static double getRotation(double x, double y){
+		double theta = 0;
+		Coord coord = new Coord(x,y);
+		if(coord.getRadius()!=0)
+			theta = Math.toDegrees(Math.acos(y / coord.getRadius()));
+		if(x>0)
+			theta = - theta;
+		return theta;
 	}
 }

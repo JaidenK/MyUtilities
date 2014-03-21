@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 public class Menu extends InterfaceItem {
 	
+	public ArrayList<Coord> childrenCoordinates;
+	
 	public Menu(){
 		dimensions = new Coord(100,100);
 		visible = false;
@@ -13,6 +15,7 @@ public class Menu extends InterfaceItem {
 		size = size.FIXED;
 		padding = 5;
 		childrenItems = new ArrayList<InterfaceItem>();
+		childrenCoordinates = new ArrayList<Coord>();
 	}
 	
 	public void add(InterfaceItem child){

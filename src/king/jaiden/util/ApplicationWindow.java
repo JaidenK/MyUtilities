@@ -5,6 +5,7 @@ import static org.lwjgl.opengl.GL11.*;
 import java.util.ArrayList;
 
 import org.lwjgl.LWJGLException;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.util.glu.GLU;
@@ -20,13 +21,17 @@ public abstract class ApplicationWindow {
 	protected int currentTick,
 				  fov,
 				  matrixMode;
-	protected double guiScale;
+	protected double guiScale,
+					 xRot,
+					 yRot,
+					 dst;
 	protected float	 zNear = 0.1f,
 					 zFar = 10000;
 	protected boolean isFullscreen,
 					  isPaused;
 	protected String windowTitle;
 	private ArrayList<InterfaceItem> registeredMouseListeners;
+	protected Controls controls;
 	
 	public ApplicationWindow(){
 		this(new IntCoord(DEFAULT_WIDTH,DEFAULT_HEIGHT));
@@ -45,6 +50,10 @@ public abstract class ApplicationWindow {
 		currentTick = 0;
 		guiScale = 1;
 		isPaused = false;
+		xRot = 0;
+		yRot = 0;
+		dst = 0;
+		controls = new Controls();
 		
 		setupDisplay();
 
@@ -122,6 +131,11 @@ public abstract class ApplicationWindow {
 		for(InterfaceItem interfaceItem : registeredMouseListeners){
 			interfaceItem.testForMouseEvents();
 		}
+		if(Mouse.isButtonDown(controls.getRotateButton())){
+			yRot += Mouse.getDX();
+			xRot -= Mouse.getDY();
+		}
+		dst += Mouse.getDWheel();
 	}
 	public void tick(){
 		currentTick++;
@@ -129,6 +143,9 @@ public abstract class ApplicationWindow {
 	public void draw(){
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
+		glTranslated(0,0,dst);
+		glRotated(xRot,1,0,0);
+		glRotated(yRot,0,1,0);
 	}
 	public void enableTests(){
 		glEnable(GL_BLEND);

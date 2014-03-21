@@ -170,7 +170,7 @@ public class DrawUtil {
 	}
 	
 	public static void setColor(Color color){
-		glColor4d(color.getRed(), color.getBlue(), color.getGreen(), color.getAlpha());
+		glColor4d(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
 	}
 	
 }

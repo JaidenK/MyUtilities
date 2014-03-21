@@ -42,7 +42,7 @@ public class Coord3D extends Coord {
 	
 	public double getRadius(){
 		
-		return Math.sqrt(Math.pow(this.getZ(), 2) + Math.pow(this.getY(), 2) + Math.pow(this.getZ(), 2));
+		return Math.sqrt(Math.pow(this.getX(), 2) + Math.pow(this.getY(), 2) + Math.pow(this.getZ(), 2));
 		
 	}
 	
