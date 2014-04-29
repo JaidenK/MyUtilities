@@ -59,11 +59,12 @@ public class Menu extends InterfaceItem {
 			glPushMatrix();
 			glTranslated(0,halfChildrenHeight,0);
 			
+			glTranslated(0,0,0.01);
 			for(int i = 0; i<childrenItems.size(); i++){
 				glTranslated(0,-childrenItems.get(i).getDimensions().getY()/2,0);
+//				System.out.println(-childrenItems.get(i).getDimensions().getY()/2);
 				childrenItems.get(i).draw();
 				glTranslated(0,-childrenItems.get(i).getDimensions().getY()/2-padding,0);
-				
 			}
 			glPopMatrix();
 		}

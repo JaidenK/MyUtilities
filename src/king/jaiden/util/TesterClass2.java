@@ -3,6 +3,8 @@ package king.jaiden.util;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static org.lwjgl.opengl.GL11.*;
+
 public class TesterClass2 extends ApplicationWindow{
 	private Menu menu;
 	
@@ -74,5 +76,14 @@ public class TesterClass2 extends ApplicationWindow{
 	public void draw(){
 		super.draw();
 		menu.draw();
+		DrawUtil.setColor(Color.BLUE);
+		glBegin(GL_LINES);
+			glVertex2d(-10,0);
+			glVertex2d(10,0);
+			glVertex2d(0,-10);
+			glVertex2d(0,10);
+		glEnd();
+			
+			
 	}
 }

@@ -107,6 +107,11 @@ public class DrawUtil {
 		glEnd();
 	}
 
+	public static void drawRectPrismAboutOrigin(Coord3D dimensions, Color color){
+		setColor(color);
+		drawRectPrismAboutOrigin(dimensions);
+	}
+	
 	public static void drawRectPrismAboutOrigin(Coord3D dimensions){
 		glDisable(GL_TEXTURE_2D);
 		glBegin(GL_QUADS);	// Shapes should be drawn counter-clockwise 
@@ -147,7 +152,7 @@ public class DrawUtil {
 	public static void setup2DMatrix(int width, int height){
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		glOrtho(-0.5*width, 0.5*width, -0.5*height, 0.5*height, 1, -1);
+		glOrtho(-0.5*width, 0.5*width, -0.5*height, 0.5*height, -1, 1);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 	}

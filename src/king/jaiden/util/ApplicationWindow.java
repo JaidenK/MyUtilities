@@ -1,10 +1,12 @@
 package king.jaiden.util;
 
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.input.Keyboard.*;
 
 import java.util.ArrayList;
 
 import org.lwjgl.LWJGLException;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
@@ -24,7 +26,12 @@ public abstract class ApplicationWindow {
 	protected double guiScale,
 					 xRot,
 					 yRot,
-					 dst;
+					 xPan,
+					 yPan,
+					 zPan,
+					 dst,
+					 dstMod,
+					 panMod;
 	protected float	 zNear = 0.1f,
 					 zFar = 10000;
 	protected boolean isFullscreen,
@@ -53,6 +60,11 @@ public abstract class ApplicationWindow {
 		xRot = 0;
 		yRot = 0;
 		dst = 0;
+		dstMod = 10;
+		xPan = 0;
+		yPan = 0;
+		zPan = 0;
+		panMod = 10;
 		controls = new Controls();
 		
 		setupDisplay();
@@ -91,7 +103,6 @@ public abstract class ApplicationWindow {
 		        		}
 		        }
 	        }
-
 			Display.setDisplayMode(displayMode);
 			Display.setFullscreen(isFullscreen);
 			Display.create();
@@ -135,7 +146,19 @@ public abstract class ApplicationWindow {
 			yRot += Mouse.getDX();
 			xRot -= Mouse.getDY();
 		}
-		dst += Mouse.getDWheel();
+		dst += Mouse.getDWheel()/dstMod;
+		if(Keyboard.isKeyDown(controls.getPanLeft()))
+			xPan+=1/panMod;
+		if(Keyboard.isKeyDown(controls.getPanRight()))
+			xPan-=1/panMod;
+		if(Keyboard.isKeyDown(controls.getPanForward()))
+			zPan+=1/panMod;
+		if(Keyboard.isKeyDown(controls.getPanBackward()))
+			zPan-=1/panMod;
+		if(Keyboard.isKeyDown(controls.getPanUp()))
+			yPan+=1/panMod;
+		if(Keyboard.isKeyDown(controls.getPanDown()))
+			yPan-=1/panMod;
 	}
 	public void tick(){
 		currentTick++;
@@ -143,6 +166,7 @@ public abstract class ApplicationWindow {
 	public void draw(){
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
+		glTranslated(xPan,yPan,zPan);
 		glTranslated(0,0,dst);
 		glRotated(xRot,1,0,0);
 		glRotated(yRot,0,1,0);
