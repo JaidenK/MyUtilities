@@ -79,4 +79,10 @@ public class Color {
 	public static Color getRandomColor(){
 		return new Color(Math.random(),Math.random(),Math.random(),1);
 	}
+	
+	public static Color getDirtColor(double radius){
+		return new Color((155d/255)+(Math.random()-0.5)*radius,
+						 (118d/255)+(Math.random()-0.5)*radius,
+						 (83d/255)+(Math.random()-0.5)*radius);
+	}
 }

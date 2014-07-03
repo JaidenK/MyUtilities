@@ -47,10 +47,25 @@ public class Coord {
 		
 	}
 	
+	public void multiply(Coord coord){
+		x *= coord.getX();
+		y *= coord.getY();
+	}
+	
+	public void reciprocate(){
+		x = 1/x;
+		y = 1/y;
+	}
+	
 	public double getRadius(){
 		
 		return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
 		
+	}
+	
+	public void setRadius(double radius){
+		double factor = radius/getRadius();
+		multiply(new Coord(factor,factor));
 	}
 	
 	public boolean equals(Coord coord){

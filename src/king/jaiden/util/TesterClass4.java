@@ -9,7 +9,7 @@ public class TesterClass4 extends ApplicationWindow {
 	}	
 	public void init() {
 		// TODO Auto-generated method stub
-		model = new VoxelModel(new Sprite("res/images/voxelHouse.png",new IntCoord(4,4),16,Sprite.HORIZONTAL));
+		model = new VoxelModel(new Sprite("res/images/voxelEarth.png",new IntCoord(8,8),64,Sprite.HORIZONTAL));
 		glClearColor(1, 1, 1, 1);
 		dst = -50;
 	}

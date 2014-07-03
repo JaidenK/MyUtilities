@@ -38,6 +38,14 @@ public class World {
 		terrain = new Block[1][1][1];
 	}
 	
+	public void newWorld(int layers, int rows, int columns){
+		String levelData = layers+" "+rows+" "+columns+" ";
+		for(int i = 0; i < layers*rows*columns; i++){
+			levelData += "0 ";
+		}
+		loadTerrain(levelData);
+	}
+	
 	public void addEntity(Entity e){
 		entities.add(e);
 	}

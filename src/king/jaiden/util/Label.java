@@ -5,17 +5,28 @@ public class Label extends InterfaceItem {
 	private String label;
 	private double letterAspectRatio;
 	private Coord fontSize;
+	private int textAlignment;
 	
 	public Label(String label,Coord letterSize){
 		dimensions = new Coord(100,100);
 		visible = true;
 		color = Color.WHITE;
 		size = size.FIXED;
+		textAlignment = TextUtil.CENTER;
 		this.label = label;
 		this.letterAspectRatio = letterSize.getX()/letterSize.getY();
 		resize();
 	}
 	
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
+		resize();
+	}
+
 	public void resize(){
 		super.resize();
 		double trueLetterHeight;
@@ -40,9 +51,17 @@ public class Label extends InterfaceItem {
 		}
 		
 		
-		TextUtil.getInstance().setAlignment(TextUtil.CENTER);
+		TextUtil.getInstance().setAlignment(textAlignment);
 		TextUtil.getInstance().setTextSize(fontSize);
 		TextUtil.getInstance().write(label, new Coord());
+	}
+
+	public int getTextAlignment() {
+		return textAlignment;
+	}
+
+	public void setTextAlignment(int textAlignment) {
+		this.textAlignment = textAlignment;
 	}
 
 }

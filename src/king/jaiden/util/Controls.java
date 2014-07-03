@@ -8,8 +8,8 @@ public class Controls {
 	private int panLeft = KEY_A;
 	private int panRight = KEY_D;
 	private int panForward = KEY_W;
-	private int panUp = KEY_LSHIFT;
-	private int panDown = KEY_SPACE;
+	private int panUp = KEY_Q;
+	private int panDown = KEY_E;
 	public int getPanUp() {
 		return panUp;
 	}

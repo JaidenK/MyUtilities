@@ -1,15 +1,20 @@
 package king.jaiden.util;
 
 public class Block {
-	public static Block AIR = new Block(false,Color.CLEAR),
-						GRASS = new Block(false,Color.GREEN),
-						DIRT = new Block(false,Color.BROWN);
+	public static Block AIR = new Block(0,false,Color.CLEAR),
+						GRASS = new Block(1,false,Color.GREEN),
+						DIRT = new Block(2,false,Color.BROWN);
 	
-	boolean solid;
-	Color color;
-	public Block(boolean solid, Color color){
+	private boolean solid;
+	private Color color;
+	private int blockId;
+	public int getBlockId() {
+		return blockId;
+	}
+	public Block(int id, boolean solid, Color color){
 		this.solid = solid;
 		this.color = color;
+		blockId = id;
 	}
 	public static Block getBlockFromId(int id){
 		switch(id){
@@ -19,8 +24,9 @@ public class Block {
 			return GRASS;
 		case 2:
 			return DIRT;
+		default:
+			return AIR;
 		}
-		return null;
 	}
 	public void draw(){
 		if(color!=Color.CLEAR)

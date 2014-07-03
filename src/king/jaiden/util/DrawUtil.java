@@ -178,4 +178,22 @@ public class DrawUtil {
 		glColor4d(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
 	}
 	
+	public static void drawAxis(){
+		glBegin(GL_LINES);
+			setColor(Color.RED);
+			glVertex3d(-1,0,0);
+			glVertex3d(1,0,0);
+			setColor(Color.GREEN);
+			glVertex3d(0,-1,0);
+			glVertex3d(0,1,0);
+			setColor(Color.BLUE);
+			glVertex3d(0,0,-1);
+			glVertex3d(0,0,1);
+		glEnd();
+	}
+	
+	public static void drawPoint(Coord3D p){
+		glVertex3d(p.getX(),p.getY(),p.getZ());
+	}
+	
 }

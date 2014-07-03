@@ -33,7 +33,7 @@ public abstract class ApplicationWindow {
 					 dstMod,
 					 panMod;
 	protected float	 zNear = 0.1f,
-					 zFar = 10000;
+					 zFar = 1000;
 	protected boolean isFullscreen,
 					  isPaused;
 	protected String windowTitle;
@@ -135,8 +135,11 @@ public abstract class ApplicationWindow {
 			Display.update();
 			Display.sync(60);
 		}
+		destroyData();
 	}
-	
+	public void destroyData(){
+		
+	};
 	public abstract void init();
 	public void input(){
 		for(InterfaceItem interfaceItem : registeredMouseListeners){
