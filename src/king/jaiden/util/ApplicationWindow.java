@@ -196,4 +196,7 @@ public abstract class ApplicationWindow {
 	public void registerMouseListener(InterfaceItem item){
 		registeredMouseListeners.add(item);
 	}
+	public IntCoord getWindowDimensions(){
+		return windowDimensions;
+	}
 }
