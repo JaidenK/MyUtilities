@@ -40,6 +40,12 @@ public class Menu extends InterfaceItem {
 	}
 	
 	public void draw(){
+		glPushMatrix();
+			if(position!=null){
+				glTranslated(position.getX(),position.getY(),0);
+			}
+		
+		
 		if(!visible)
 			return;
 
@@ -50,10 +56,14 @@ public class Menu extends InterfaceItem {
 			image.draw();
 		if(childrenItems!=null){
 			double childrenHeight = 0;
+			int countedChildren = 0;
 			for(InterfaceItem child : childrenItems){
-				childrenHeight += child.getDimensions().getY();
+				if(child.getPosition()==null){
+					childrenHeight += child.getDimensions().getY();
+					countedChildren ++;
+				}
 			}
-			childrenHeight += padding*(childrenItems.size()-1);
+			childrenHeight += padding*(countedChildren-1);
 			double halfChildrenHeight = childrenHeight/2;
 			
 			glPushMatrix();
@@ -61,14 +71,17 @@ public class Menu extends InterfaceItem {
 			
 			glTranslated(0,0,0.01);
 			for(int i = 0; i<childrenItems.size(); i++){
-				glTranslated(0,-childrenItems.get(i).getDimensions().getY()/2,0);
+				if(childrenItems.get(i).getPosition()==null)
+					glTranslated(0,-childrenItems.get(i).getDimensions().getY()/2,0);
 //				System.out.println(-childrenItems.get(i).getDimensions().getY()/2);
 				childrenItems.get(i).draw();
-				glTranslated(0,-childrenItems.get(i).getDimensions().getY()/2-padding,0);
+				if(childrenItems.get(i).getPosition()==null)
+					glTranslated(0,-childrenItems.get(i).getDimensions().getY()/2-padding,0);
 			}
 			glPopMatrix();
 		}
 		
+		glPopMatrix();
 
 	}
 }

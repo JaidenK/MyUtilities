@@ -18,7 +18,9 @@ public class Color {
 							  BLACK = new Color(0,0,0),
 							  GRAY = new Color(0.5,0.5,0.5),
 	  					      CLEAR = new Color(1,1,1,0),
-	  					      BROWN = new Color(0.4,0.05882352941176,0);
+	  					      BROWN = new Color(0.4,0.05882352941176,0),
+	  					      COPPER_ORANGE = new Color(0.85098039215686,0.56470588235294,0.34509803921569);
+				
 	
 	public static final Color[] RAINBOW_1 = {RED,ORANGE,YELLOW,GREEN,CYAN,BLUE,VIOLET,WHITE};
 	

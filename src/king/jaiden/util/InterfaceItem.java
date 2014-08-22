@@ -10,6 +10,7 @@ import org.lwjgl.input.Mouse;
 
 public abstract class InterfaceItem {
 	protected Coord dimensions;
+	protected Coord position;
 	protected Size size;
 	protected boolean visible;
 	protected Color color;
@@ -93,6 +94,12 @@ public abstract class InterfaceItem {
 	}
 	public void setDimensions(Coord dimensions) {
 		this.dimensions = dimensions;
+	}
+	public Coord getPosition()	{
+		return position;
+	}
+	public void setPosition(Coord position) {
+		this.position = position;
 	}
 	public void setSize(Size size) {
 		this.size = size;

@@ -1,4 +1,6 @@
 package king.jaiden.util;
+import static org.lwjgl.opengl.GL11.*;
+
 
 public class Label extends InterfaceItem {
 
@@ -43,6 +45,10 @@ public class Label extends InterfaceItem {
 	
 	@Override
 	public void draw() {
+		glPushMatrix();
+		if(position!=null){
+			glTranslated(position.getX(),position.getY(),0);
+		}
 		// TODO Auto-generated method stub
 		DrawUtil.setColor(color);
 		
@@ -54,6 +60,7 @@ public class Label extends InterfaceItem {
 		TextUtil.getInstance().setAlignment(textAlignment);
 		TextUtil.getInstance().setTextSize(fontSize);
 		TextUtil.getInstance().write(label, new Coord());
+		glPopMatrix();
 	}
 
 	public int getTextAlignment() {

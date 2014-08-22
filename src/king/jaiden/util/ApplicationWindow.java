@@ -6,8 +6,10 @@ import static org.lwjgl.input.Keyboard.*;
 import java.util.ArrayList;
 
 import org.lwjgl.LWJGLException;
+import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
+import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.util.glu.GLU;
@@ -31,7 +33,9 @@ public abstract class ApplicationWindow {
 					 zPan,
 					 dst,
 					 dstMod,
-					 panMod;
+					 panMod,
+					 delta;//Time since last frame
+	protected long lastFrame;
 	protected float	 zNear = 0.1f,
 					 zFar = 1000;
 	protected boolean isFullscreen,
@@ -39,6 +43,9 @@ public abstract class ApplicationWindow {
 	protected String windowTitle;
 	private ArrayList<InterfaceItem> registeredMouseListeners;
 	protected Controls controls;
+	
+	protected boolean cutscene;
+	protected Animation animation;
 	
 	public ApplicationWindow(){
 		this(new IntCoord(DEFAULT_WIDTH,DEFAULT_HEIGHT));
@@ -48,6 +55,21 @@ public abstract class ApplicationWindow {
 		this(windowDimensions,DEFAULT_FOV,"Game",false,TWO_DIMENSIONAL);
 	}
 	
+	public void setCutscene(boolean x){
+		cutscene = x;
+	}
+	
+	public boolean getCutscene(){
+		return cutscene;
+	}
+	protected long getTime() {
+		return (Sys.getTime() * 1000) / Sys.getTimerResolution();
+	}
+	protected void getDelta() {
+		long currentTime = getTime();
+		delta = (double) currentTime - (double) lastFrame;
+		lastFrame = getTime();
+	}
 	public ApplicationWindow(IntCoord windowDimensions, int fov, String windowTitle, boolean isFullscreen, int matrixMode){
 		this.windowDimensions = windowDimensions;
 		this.fov = fov;
@@ -57,6 +79,7 @@ public abstract class ApplicationWindow {
 		currentTick = 0;
 		guiScale = 1;
 		isPaused = false;
+		cutscene = false;
 		xRot = 0;
 		yRot = 0;
 		dst = 0;
@@ -107,6 +130,7 @@ public abstract class ApplicationWindow {
 			Display.setFullscreen(isFullscreen);
 			Display.create();
 			Display.setTitle(windowTitle);
+			AL.create();
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 			System.exit(1);
@@ -120,14 +144,15 @@ public abstract class ApplicationWindow {
 			setup2DMatrix();
 		}
 	}
-	protected void setup2DMatrix(){
+	public void setup2DMatrix(){
 		DrawUtil.setup2DMatrix((int)windowDimensions.getX(),(int)windowDimensions.getY());
 	}
-	protected void setup3DMatrix(){
+	public void setup3DMatrix(){
 		DrawUtil.setup3DMatrix((int)windowDimensions.getX(),(int)windowDimensions.getY(),zNear,zFar);
 	}
 	private void renderLoop(){
 		while (!Display.isCloseRequested()){
+			getDelta();
 			input();
 			tick();
 			draw();
@@ -138,9 +163,12 @@ public abstract class ApplicationWindow {
 		destroyData();
 	}
 	public void destroyData(){
-		
+		Display.destroy();
+		AL.destroy();
 	};
-	public abstract void init();
+	public void init(){
+		lastFrame = getTime();
+	}
 	public void input(){
 		for(InterfaceItem interfaceItem : registeredMouseListeners){
 			interfaceItem.testForMouseEvents();
@@ -198,5 +226,13 @@ public abstract class ApplicationWindow {
 	}
 	public IntCoord getWindowDimensions(){
 		return windowDimensions;
+	}
+
+	public Animation getAnimation() {
+		return animation;
+	}
+
+	public void setAnimation(Animation animation) {
+		this.animation = animation;
 	}
 }
